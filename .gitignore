@@ -1,2 +1,5 @@
 Drivers/
 .git/
+MDK-ARM/stm32f4iap
+MDK-ARM/DebugConfig
+MDK-ARM/RTE

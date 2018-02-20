@@ -52,7 +52,7 @@
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
-
+#include "iap.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -107,7 +107,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
-
+	iap_check();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
