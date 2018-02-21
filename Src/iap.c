@@ -61,6 +61,19 @@ bool entry_shell()
 {
 	
 }
+typedef void (*pFun)();
+void iap_app_jump (struct BootConfig bc)
+{
+	u32 addr=bc.app_addr[bc.app_load_index];
+	if (((*(__IO uint32_t*)addr) & 0x2FFE0000 ) == 0x20000000)
+	{ 
+		u32 JumpAddress = *(__IO u32*) (addr + 4);
+		pFun jump = (pFun) JumpAddress;
+		HAL_DeInit();
+		__set_MSP(*(__IO u32*) addr);
+		jump();
+	}
+}
 void iap_check()
 {
 	struct BootConfig bc;
@@ -75,6 +88,8 @@ void iap_check()
 		//config invalid.
 		boot_config_save(&bc_default);
 	}
+	HAL_GPIO_WritePin(led_iap_GPIO_Port,led_iap_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(led_err_GPIO_Port,led_err_Pin,GPIO_PIN_SET);
 	u32 entry_ticks=HAL_GetTick();
 	u32 time_out=3000;
 	u8 state=0;
@@ -84,10 +99,6 @@ void iap_check()
 		switch(state)
 		{
 			case 0:
-				if(TRUE==entry_shell())
-				{
-					state=1;
-				}
 				if(HAL_GetTick()-entry_ticks>=time_out)
 				{
 					exit=TRUE;
@@ -103,4 +114,5 @@ void iap_check()
 				break;
 		}
 	}
+	iap_app_jump(bc);
 }
