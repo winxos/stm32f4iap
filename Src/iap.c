@@ -62,13 +62,11 @@ bool entry_shell()
 	
 }
 typedef void (*pFun)();
-void iap_app_jump (struct BootConfig bc)
+void iap_app_jump (u32 addr)
 {
-	u32 addr=bc.app_addr[bc.app_load_index];
-	if (((*(__IO uint32_t*)addr) & 0x2FFE0000 ) == 0x20000000)
+	if (((*(__IO u32*)addr) & 0x2FFE0000 ) == 0x20000000)
 	{ 
-		u32 JumpAddress = *(__IO u32*) (addr + 4);
-		pFun jump = (pFun) JumpAddress;
+		pFun jump = (pFun) *(__IO u32*) (addr + 4);
 		HAL_DeInit();
 		__set_MSP(*(__IO u32*) addr);
 		jump();
@@ -91,7 +89,7 @@ void iap_check()
 	HAL_GPIO_WritePin(led_iap_GPIO_Port,led_iap_Pin,GPIO_PIN_SET);
 	HAL_GPIO_WritePin(led_err_GPIO_Port,led_err_Pin,GPIO_PIN_SET);
 	u32 entry_ticks=HAL_GetTick();
-	u32 time_out=3000;
+	u32 time_out=1000;
 	u8 state=0;
 	bool exit=FALSE;
 	while(FALSE==exit)
@@ -114,5 +112,5 @@ void iap_check()
 				break;
 		}
 	}
-	iap_app_jump(bc);
+	iap_app_jump(bc.app_addr[bc.app_load_index]);
 }
