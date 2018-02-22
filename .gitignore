@@ -1,5 +1,6 @@
-Drivers/
+**/Drivers/
 .git/
-MDK-ARM/stm32f4iap
-MDK-ARM/DebugConfig
-MDK-ARM/RTE
+**/stm32f4iap
+**/f407
+**/DebugConfig
+**/RTE
