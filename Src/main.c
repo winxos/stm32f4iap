@@ -54,6 +54,7 @@
 #include "usb_device.h"
 #include "gpio.h"
 #include "iap.h"
+#include "usbd_cdc_if.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -76,7 +77,12 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
-
+/*
+struct __FILE { int handle; };  
+int fputc(int ch, FILE *f) {
+    while(CDC_Transmit_FS((uint8_t*)(&ch),1)!=USBD_OK){};
+		return ch;
+}*/
 int main(void)
 {
 
@@ -109,17 +115,20 @@ int main(void)
 	uint32_t p[3]={0x123456};
 	volatile uint32_t a=HAL_CRC_Calculate(&hcrc,p,1);
 	
-	printf("%d",a);
+	//printf("%d",a);
   /* USER CODE END 2 */
 	iap_check();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	uint8_t buf[]="hello\n";
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
+		//printf("hello\n");
+		CDC_Transmit_FS(buf,sizeof(buf));
+		HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 
