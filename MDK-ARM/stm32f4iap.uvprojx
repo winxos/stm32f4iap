@@ -274,7 +274,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x4000</Size>
+                <Size>0x8000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -311,7 +311,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -439,6 +439,11 @@
               <FileName>shell.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\Src\shell.h</FilePath>
+            </File>
+            <File>
+              <FileName>crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\crc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -579,6 +584,11 @@
               <FileName>stm32f4xx_hal_uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_crc.c</FilePath>
             </File>
           </Files>
         </Group>

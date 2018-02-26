@@ -49,6 +49,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "crc.h"
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -104,7 +105,11 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 2 */
-
+  MX_CRC_Init();
+	uint32_t p[3]={0x123456};
+	volatile uint32_t a=HAL_CRC_Calculate(&hcrc,p,1);
+	
+	printf("%d",a);
   /* USER CODE END 2 */
 	iap_check();
   /* Infinite loop */
